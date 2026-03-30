@@ -1,0 +1,33 @@
+@startuml
+class Twitter {
++<<create>>Twitter(): Twitter
++agregarUsuario(usu: Usuario)
++eliminarUsuario(usu: Usuario)
++verificarNombre(screenName: String): Boolean
+}
+class Usuario{
+-screenName: String
++<<create>>Usuario(plataforma: Twitter): Usuario
++eliminarMiCuenta(usu: Usuario)
++crearMiCuenta(screenName: String)
++agregarTweet(tweet: Tweets)
++getNombre(): String
+}
+interface Tweets {
+}
+class Tweet{
+-texto: String
++<<create>>Tweet(): Tweet
++crearTweet(texto: String)
++getTexto(): String
+}
+class ReTweet {
++<<create>>ReTweet(origen: Tweet): ReTweet
+}
+Tweet -up..|> Tweets
+ReTweet -up..|> Tweets
+Twitter "listaUsuarios 0..n"-> Usuario
+Usuario "0..n listaTweets"-left-> Tweets
+Tweet "origen"<- ReTweet
+Usuario "plataforma" -> Twitter
+@enduml
