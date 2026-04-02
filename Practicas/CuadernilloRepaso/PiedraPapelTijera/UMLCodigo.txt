@@ -1,0 +1,57 @@
+@startuml
+interface Eleccion {
++jugarContraPiedra(): String
++jugarContraPapel(): String
++jugarContraTijera(): String
++jugarContraLagarto(): String
++jugarContraSpock(): String
++contra(Eleccion jugada): String
+}
+class Piedra {
++jugarContraPiedra(): String
++jugarContraPapel(): String
++jugarContraTijera(): String
++jugarContraLagarto(): String
++jugarContraSpock(): String
++contra(Eleccion jugada): String
+}
+class Papel {
++jugarContraPiedra(): String
++jugarContraPapel(): String
++jugarContraTijera(): String
++jugarContraLagarto(): String
++jugarContraSpock(): String
++contra(Eleccion jugada): String
+}
+class Tijera{
++jugarContraPiedra(): String
++jugarContraPapel(): String
++jugarContraTijera(): String
++jugarContraLagarto(): String
++jugarContraSpock(): String
++contra(Eleccion jugada): String
+}
+class Spock{
++jugarContraPiedra(): String
++jugarContraPapel(): String
++jugarContraTijera(): String
++jugarContraLagarto(): String
++jugarContraSpock(): String
++contra(Eleccion jugada): String
+}
+class Lagarto{
++jugarContraPiedra(): String
++jugarContraPapel(): String
++jugarContraTijera(): String
++jugarContraLagarto(): String
++jugarContraSpock(): String
++contra(Eleccion jugada): String
+}
+
+
+Piedra.-up.|> Eleccion
+Papel .-up.|> Eleccion
+Tijera .-left.|> Eleccion
+Spock .-right.|> Eleccion
+Lagarto ..|> Eleccion
+@enduml
