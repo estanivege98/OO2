@@ -38,15 +38,18 @@ public class CharRing {
     private int nextIndex;
 
     public CharRing(String srcString){
-        if (srcString != null) {
-            srcString.getChars(0, srcString.length(), source, 0)
+        if (srcString == null || srcString.isEmpty()) {
+            throw new IllegalArgumentException("srcString cannot be null or empty");
         }
-        source = new char[srcString.length()];
+        source = srcString.toCharArray();
         nextIndex = 0;
     }
 
     public char next(){
-        if (nextIndex >= source.length)
+        if(source.length == 0){
+            throw new IllegalStateException("Source string cannot be empty");
+        }
+        if (nextIndex >= source.length )
             nextIndex = 0;
         return source[nextIndex++];
     }
