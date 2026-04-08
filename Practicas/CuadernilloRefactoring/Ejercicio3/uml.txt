@@ -1,0 +1,19 @@
+@startuml
+abstract Ring{
+#idx: Integer
++<<abstract>> next(): T
+}
+class CharRing{
+-source: Character[]
++<<create>>CharRing(src: String)
++next(): Character
+}
+class IntRing{
+-source: Integer[]
++<<create>>IntRing(src: Integer[])
++next(): Integer
+}
+
+CharRing -up-|>Ring
+IntRing -up-|>Ring
+@enduml
