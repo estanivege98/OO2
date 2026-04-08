@@ -1,5 +1,20 @@
 package org.example;
 
-public class Product {
+import java.time.LocalDate;
 
+public abstract class Product {
+
+    protected TimePeriod timePeriod;
+
+    public Product(TimePeriod timePeriod){
+        this.timePeriod = timePeriod;
+    }
+    public LocalDate startDate() {
+        return this.timePeriod.start();
+    }
+
+    public LocalDate endDate() {
+        return this.timePeriod.end();
+    }
 }
+

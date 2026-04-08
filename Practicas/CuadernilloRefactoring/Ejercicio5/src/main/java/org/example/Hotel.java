@@ -9,11 +9,13 @@ public class Hotel {
         this.discountRate = discountRate;
     }
 
-    public double nightPrice() {
+    private double nightPrice() {
         return this.nightPrice;
     }
 
-    public double discountRate() {
+    private double discountRate() {
         return this.discountRate;
     }
+
+    public double getFinalPrice(){ return this.nightPrice() * this.discountRate(); }
 }

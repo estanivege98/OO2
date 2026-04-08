@@ -9,11 +9,15 @@ public class Company {
         this.promotionRate = promotionRate;
     }
 
-    public double price() {
+    private double price() {
         return this.price;
     }
 
-    public double promotionRate() {
+    private double promotionRate() {
         return this.promotionRate;
+    }
+
+    public double getFinalPrice() {
+        return this.price() * this.promotionRate();
     }
 }
