@@ -6,11 +6,11 @@ class EtiquetaDetalle extends Etiqueta {
     }
 
 
-    public double imprimirPrecioFinal() {
+    private double imprimirPrecioFinal() {
         return getPrecio();
     }
 
-    public double imprimirPrecioSinImp() {
+    private double imprimirPrecioSinImp() {
         return getPrecio() * 0.79;
     }
 
