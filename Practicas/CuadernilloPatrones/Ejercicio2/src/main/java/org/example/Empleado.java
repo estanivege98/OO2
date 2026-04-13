@@ -2,7 +2,7 @@ package org.example;
 
 public abstract class Empleado  {
 
-    protected abstract void sueldo();
+    protected abstract double sueldo();
 
     protected void calculoDescuento(){
 
