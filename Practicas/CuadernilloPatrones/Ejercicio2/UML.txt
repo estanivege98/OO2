@@ -1,0 +1,26 @@
+@startuml
+Abstract Empleado{
+#<<abstract>> sueldo()
+#calculoDescuento()
+}
+Class Temporario{
+-horasTrabajadas: Integer
+-casado: Bool
+-cantHijos: Integer
+#sueldo()
+}
+Class Planta{
+-casado: Bool
+-cantHijos: Integer
+-antiuguedad: Integer
+#sueldo()
+}
+Class Pasante{
+-examenesRendidos: Integer
+#sueldo()
+}
+
+Temporario -up-|> Empleado
+Planta -up-|> Empleado
+Pasante -up-|> Empleado
+@enduml
