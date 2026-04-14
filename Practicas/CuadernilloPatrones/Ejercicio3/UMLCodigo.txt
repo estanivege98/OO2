@@ -1,0 +1,27 @@
+@startuml
+
+Class MediaPlayer{
++play()
+}
+Class MediaVideoStream{
++play()
+}
+Interface Media{
++<<abstract>>play()
+}
+Class VideoStream{
++reproduce()
+}
+Class Audio{
++play()
+}
+Class VideoFile{
++play()
+}
+
+MediaPlayer "media *"-down-> Media : "        "
+Audio -up.|> Media
+VideoFile -up.|> Media
+Media <|.. MediaVideoStream
+VideoStream <|-- MediaVideoStream
+@enduml
