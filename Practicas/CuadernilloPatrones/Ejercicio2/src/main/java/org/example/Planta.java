@@ -5,16 +5,19 @@ public class Planta extends Empleado{
     private int cantHijos;
     private int antiguedad;
 
-    private double casadoConHijos(){
-        double cantADevolver = 0;
-        if(casado){
-            cantADevolver += 5000.0;
-        }
-        cantADevolver += cantHijos * 2000.0;
-        return cantADevolver;
+    public Planta(int antiguedad, boolean casado, int cHijos){
+        this.antiguedad = antiguedad;
+        this.casado = casado;
+        this.cantHijos = cHijos;
     }
 
-    protected double sueldo(){
-        return 50000.0 + (antiguedad * 2000.0) + casadoConHijos();
+    @Override
+    protected double calcularBasico(){
+        return 50000.0;
+    }
+
+    @Override
+    protected double calcularAdicional() {
+        return (casado ? 5000.0 : 0.0) + (cantHijos * 2000.0) + (antiguedad * 2000.0);
     }
 }

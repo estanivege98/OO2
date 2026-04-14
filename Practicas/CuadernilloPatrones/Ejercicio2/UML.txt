@@ -1,23 +1,34 @@
 @startuml
 Abstract Empleado{
-#<<abstract>> sueldo()
-#calculoDescuento()
+#sueldo(): Real
+#<<abstract>>calcularBasico(): Real
+#<<abstract>>calcularAdicional(): Real
+-calculoDescuento(): Real
 }
 Class Temporario{
 -horasTrabajadas: Integer
 -casado: Bool
 -cantHijos: Integer
-#sueldo()
++<<create>>Temporario(hTrabajadas: Integer, casado: Bool, cHijos: Integer)
+#sueldo(): Real
+#calcularBasico(): Real
+#calcularAdicional(): Real
 }
 Class Planta{
 -casado: Bool
 -cantHijos: Integer
 -antiuguedad: Integer
-#sueldo()
++<<create>>Temporario(antiguedad: Integer, casado: Bool, cHijos: Integer)
+#sueldo(): Real
+#calcularBasico(): Real
+#calcularAdicional(): Real
 }
 Class Pasante{
 -examenesRendidos: Integer
-#sueldo()
++<<create>>Temporario(cExamenes: Integer)
+#sueldo(): Real
+#calcularBasico(): Real
+#calcularAdicional(): Real
 }
 
 Temporario -up-|> Empleado

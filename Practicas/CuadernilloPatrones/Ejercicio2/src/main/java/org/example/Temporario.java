@@ -5,20 +5,19 @@ public class Temporario extends Empleado{
     private boolean casado;
     private int cantHijos;
 
-    private double calcularCantHorasTrabajadas(){
-        return horasTrabajadas * 300;
+    public Temporario(int hTrabajadas, boolean casado, int cHijos){
+        this.horasTrabajadas = hTrabajadas;
+        this.casado = casado;
+        this.cantHijos = cHijos;
     }
 
-    private double casadoConHijos(){
-        double cantADevolver = 0;
-        if(casado){
-            cantADevolver += 5000.0;
-        }
-        cantADevolver += cantHijos * 2000.0;
-        return cantADevolver;
+    @Override
+    protected double calcularBasico(){
+        return (horasTrabajadas * 300.0) + 20000.0;
     }
 
-    protected double sueldo(){
-        return 20000.0 + calcularCantHorasTrabajadas() + casadoConHijos();
+    @Override
+    protected double calcularAdicional() {
+        return (casado ? 5000.0 : 0.0) + (cantHijos * 2000.0);
     }
 }
