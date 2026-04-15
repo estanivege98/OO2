@@ -1,0 +1,36 @@
+@startuml
+
+Interface Topografia <<Component>>{
++<<abstract>>proporcionAgua(): Real
++<<abstract>>esIgualA(t: Topografia): Bool
+}
+
+Class TopografiaAgua <<Leaf>>{
++proporcionAgua(): Real
++esIgualA(t: Topografia): Bool
+}
+
+Class TopografiaTierra <<Leaf>>{
++proporcionAgua(): Real
++esIgualA(t: Topografia): Bool
+}
+
+Class TopografiaMixta <<Composite>>{
++proporcionAgua(): Real
++esIgualA(t: Topografia): Bool
++esUnComptesto(): Bool
++obtenerComponentes(): Topografia[*]
++agregarComponente(t: Topografia)
+}
+
+Class TopografiaPantano <<Leaf>>{
++proporcionAgua(): Real
++esIgualA(t: Topografia): Bool
+}
+
+TopografiaAgua ..|> Topografia
+TopografiaPantano ..|> Topografia
+TopografiaTierra ..|> Topografia
+TopografiaMixta ..|> Topografia
+TopografiaMixta "componentes 0..n" --*  Topografia
+@enduml
