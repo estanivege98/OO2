@@ -1,36 +1,48 @@
 @startuml
-
-Interface Topografia <<Component>>{
-+<<abstract>>proporcionAgua(): Real
-+<<abstract>>esIgualA(t: Topografia): Bool
+interface Topografia <<Component>> {
+  + proporcionAgua(): Real
+  + proporcionTierra(): Real
+  + esIgualA(t: Topografia): Bool
+  + esIgualAAgua(t: TopografiaAgua): Bool
+  + esIgualATierra(t: TopografiaTierra): Bool
+  + esIgualAPantano(t: TopografiaPantano): Bool
+  + esIgualAMixta(t: TopografiaMixta): Bool
 }
 
-Class TopografiaAgua <<Leaf>>{
-+proporcionAgua(): Real
-+esIgualA(t: Topografia): Bool
+class TopografiaAgua <<Leaf>> {
+  + proporcionAgua(): Real
+  + proporcionTierra(): Real
+  + esIgualA(t: Topografia): Bool
+  + esIgualAAgua(t: TopografiaAgua): Bool
 }
 
-Class TopografiaTierra <<Leaf>>{
-+proporcionAgua(): Real
-+esIgualA(t: Topografia): Bool
+class TopografiaTierra <<Leaf>> {
+  + proporcionAgua(): Real
+  + proporcionTierra(): Real
+  + esIgualA(t: Topografia): Bool
+  + esIgualATierra(t: TopografiaTierra): Bool
 }
 
-Class TopografiaMixta <<Composite>>{
-+proporcionAgua(): Real
-+esIgualA(t: Topografia): Bool
-+esUnComptesto(): Bool
-+obtenerComponentes(): Topografia[*]
-+agregarComponente(t: Topografia)
+class TopografiaPantano <<Leaf>> {
+  + proporcionAgua(): Real
+  + proporcionTierra(): Real
+  + esIgualA(t: Topografia): Bool
+  + esIgualAPantano(t: TopografiaPantano): Bool
 }
 
-Class TopografiaPantano <<Leaf>>{
-+proporcionAgua(): Real
-+esIgualA(t: Topografia): Bool
+class TopografiaMixta <<Composite>> {
+  - componentes: List<Topografia>
+  + <<create>>TopografiaMixta()
+  + agregarComponente(t: Topografia)
+  + proporcionAgua(): Real
+  + proporcionTierra(): Real
+  + esIgualA(t: Topografia): Bool
+  + esIgualAMixta(t: TopografiaMixta): Bool
 }
 
 TopografiaAgua ..|> Topografia
-TopografiaPantano ..|> Topografia
 TopografiaTierra ..|> Topografia
+TopografiaPantano ..|> Topografia
 TopografiaMixta ..|> Topografia
-TopografiaMixta "componentes 0..n" --*  Topografia
+TopografiaMixta "0..4" *-- Topografia : componentes
 @enduml

@@ -21,3 +21,7 @@ La proporción de agua de una topografía sólo agua es 1. La proporción de
 Extienda el ejercicio anterior para soportar (además de Agua y Tierra) el terreno Pantano. Un pantano tiene una proporción de agua de 0.7 y una proporción de tierra de 0.3. No olvide hacer las modificaciones necesarias para responder adecuadamente la comparación por igualdad.
 
 ## Resolución
+![UML.png](UML.png)
+Para resolver el ejercicio se implementó una clase abstracta `Topografia` con un método abstracto `proporcionAgua()`. Luego, se implementaron las clases `Agua`, `Tierra` y `Pantano` que extienden de `Topografia` y proporcionan su propia implementación del método `proporcionAgua()`. Finalmente, se implementó la clase `TopografiaCompuesta` que también extiende de `Topografia` y contiene una lista de componentes (que pueden ser de cualquier tipo de topografía) y calcula su proporción de agua en función de sus componentes.
+Se usa el patron Composite para representar la relación entre las topografías simples (Agua, Tierra, Pantano) y las topografías compuestas. Esto permite tratar a las topografías de manera uniforme, ya sean simples o compuestas, y facilita la implementación de la comparación por igualdad.
+Tambien se utiliza Double Dispatch para comparar la igualdad entre topografías, lo que permite que cada tipo de topografía se compare adecuadamente con otros tipos.
