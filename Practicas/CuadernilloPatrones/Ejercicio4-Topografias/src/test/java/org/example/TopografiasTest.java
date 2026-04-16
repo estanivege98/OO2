@@ -75,4 +75,38 @@ public class TopografiasTest {
         Assertions.assertFalse(topoTierra.esIgualA(topoAgua));
         Assertions.assertFalse(topoTierra.esIgualA(topoMixta1));
     }
+
+    @Test
+    public void test_es_igual_a_pantano() {
+        TopografiaPantano topoPantano1 = new TopografiaPantano();
+        TopografiaPantano topoPantano2 = new TopografiaPantano();
+
+        Assertions.assertTrue(topoPantano1.esIgualA(topoPantano2));
+        Assertions.assertFalse(topoPantano1.esIgualA(topoAgua));
+        Assertions.assertFalse(topoPantano1.esIgualA(topoTierra));
+        Assertions.assertFalse(topoPantano1.esIgualA(topoMixta1));
+    }
+
+    @Test
+    public void test_es_igual_a_mixta() {
+        TopografiaMixta topoMixta3 = new TopografiaMixta();
+
+        topoMixta1.agregarComponente(topoAgua);
+        topoMixta1.agregarComponente(topoTierra);
+        topoMixta1.agregarComponente(topoAgua);
+        topoMixta1.agregarComponente(topoAgua);
+
+        topoMixta2.agregarComponente(new TopografiaAgua());
+        topoMixta2.agregarComponente(new TopografiaTierra());
+        topoMixta2.agregarComponente(new TopografiaAgua());
+        topoMixta2.agregarComponente(new TopografiaAgua());
+
+        topoMixta3.agregarComponente(new TopografiaAgua());
+        topoMixta3.agregarComponente(new TopografiaAgua());
+        topoMixta3.agregarComponente(new TopografiaTierra());
+        topoMixta3.agregarComponente(new TopografiaAgua());
+
+        Assertions.assertTrue(topoMixta1.esIgualA(topoMixta2));
+        Assertions.assertFalse(topoMixta1.esIgualA(topoMixta3));
+    }
 }
