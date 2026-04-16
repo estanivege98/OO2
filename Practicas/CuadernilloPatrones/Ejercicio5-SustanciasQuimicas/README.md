@@ -7,6 +7,7 @@ En química inorgánica, las sustancias pueden estar formadas por átomos indivi
 Una unión puede estar formada directamente por átomos, o bien incluir otras uniones como componentes. Por ejemplo, OH (hidroxilo) es una unión que puede aparecer dentro de sustancias más grandes como NaOH o Ca(OH)₂.
 De cada átomo se conoce: nombre, símbolo, peso atómico (entero simplificado), carga típica y clasificación (metal / no metal).
 Ejemplos:
+![tabla1.png](tabla1.png)
 ### Reglas de Cobinación 
 
 
