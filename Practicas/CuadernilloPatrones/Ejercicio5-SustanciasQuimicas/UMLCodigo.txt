@@ -1,0 +1,45 @@
+@startuml
+
+Interface ElementoQuimico <<interface>>{
++formula(): String
++pesoMolecular(): Integer
++carga(): Integer
++esValida(): Bool
++esMetal(): Bool
+}
+
+Class Atomo<<concrete>>{
+-nombre: String
+-simbolo: String
+-pesoAtomico: Integer
+-carga: Integer
+-esMetal: Bool
++formula(): String
++pesoMolecular(): Integer
++carga(): Integer
++esValida(): Bool
++esMetal(): Bool
+}
+
+Class Union<<concrete>>{
+-elementos: ElementoQuimico[*]
++formula(): String
++pesoMolecular(): Integer
++carga(): Integer
++esValida(): Bool
++esMetal(): Bool
+}
+
+Class ElementoQuimicoFactory<<creator>>{
++getUnion(): Union
++getHidrogeno(): Atomo
++getOxigeno(): Atomo
++getCloro(): Atomo
++getSodio(): Atomo
++getCalcio(): Atomo
+}
+
+Atomo ..|> ElementoQuimico
+Union ..|> ElementoQuimico
+ElementoQuimicoFactory -left-> ElementoQuimico
+@enduml

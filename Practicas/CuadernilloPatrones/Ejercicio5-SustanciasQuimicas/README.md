@@ -54,3 +54,8 @@ Ejemplos de peso molecular:
 1.5 La solución debe incluir un mecanismo para crear uniones químicas utilizando elementos ya creados.
 2. Implemente los casos de test de unidad que permitan verificar  que su implementación funciona correctamente
 
+## Solución
+### UML
+![UML.png](UML.png)
+
+Se ha implementado el Factory Method para la creación de uniones químicas, lo que permite crear uniones a partir de elementos ya existentes. La clase `UnionQuimicaFactory` se encarga de validar las combinaciones y crear las uniones correspondientes.
