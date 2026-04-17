@@ -1,0 +1,58 @@
+@startuml
+class Sandwich <<Product>>{
++agregarIngrediente(ingrediente: IIngrediente)
++calcularPrecio(): Real
++obtenerIngredientes(): IIngrediente[*]
+}
+abstract SandwichBuilder<<Constructor>>{
++<<abstract>> colocarPan()
++<<abstract>> agregarPrincipal()
++<<abstract>> agregarAderezo()
++<<abstract>> agregarAderezo()
++obtenerSandwich(): Sandwich
+#agregarIngrediente(c: IIngrediente)
+}
+class SubtleWay<<Director>>{
++pedirSandwich(constructor: SandwichBuilder): Sandwich
+}
+class BuilderClasico<<Concrete>> {
++ colocarPan()
++ agregarPrincipal()
++ agregarAderezo()
++ agregarAderezo()
+}
+class BuilderVegetariano<<Concrete>> {
++ colocarPan()
++ agregarPrincipal()
++ agregarAderezo()
++ agregarAderezo()
+}
+class BuilderSinTACC<<Concrete>>{
++ colocarPan()
++ agregarPrincipal()
++ agregarAderezo()
++ agregarAderezo()
+}
+class BuilderVegano<<Concrete>>{
++ colocarPan()
++ agregarPrincipal()
++ agregarAderezo()
++ agregarAderezo()
+}
+interface IIngrediente{
++<<abstract>>calcularPrecio(): Real
+}
+Class Ingrediente{
+-nombre: String
+-precio: Real
++calcularPrecio(): Real
+}
+SubtleWay  -left-> SandwichBuilder : "constructor"
+BuilderVegano -up-|> SandwichBuilder
+BuilderSinTACC -up-|> SandwichBuilder
+BuilderVegetariano -up-|> SandwichBuilder
+BuilderClasico -up-|> SandwichBuilder
+SandwichBuilder .-up.> Sandwich
+Sandwich --> IIngrediente : "ingredientes"
+Ingrediente ..|> IIngrediente
+@enduml
