@@ -18,4 +18,4 @@ Sin TACC: consta de pan de chipá (150 pesos), aderezo de salsa tártara (18 pes
 
 ## Solución
 ### UML
-![UML.png](UML.png)
+![uml.png](uml.png)
