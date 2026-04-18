@@ -1,0 +1,74 @@
+@startuml
+abstract class ProductoFinanciero {
+-fechaOperacion: Date
++<<abstract>> retornoInversion(montoInicial: Real): Real
+}
+class CompraDolares{
+-valorCompra:Real
+}
+class CompraPesos{
+-valorCompra:Real
+}
+class PlazoFijo{
+-cantidadDias: Integer
+-interes: Real
+}
+class CompraBonoBajoRiesgo{
+-parking: Integer
+}
+class CompraBonoAltoRiesgo{
+-parking: Integer
+}
+class ProductoCombinado{
++agregarProducto(p: ProductoFinanciero)
++removerProducto(p: ProductoFinanciero)
++retornoInversion(montoInicial: Real): Real
+}
+
+CompraDolares -up-|> ProductoFinanciero
+CompraPesos -up-|> ProductoFinanciero
+PlazoFijo -up-|> ProductoFinanciero
+CompraBonoBajoRiesgo -up-|> ProductoFinanciero
+CompraBonoAltoRiesgo -up-|> ProductoFinanciero
+ProductoCombinado -up-|> ProductoFinanciero
+ProductoCombinado o--> "*" ProductoFinanciero : productos
+
+abstract class Membresia {
++<<abstract>> getTasaPlazoFijo(): Real
++<<abstract>> getMinimoDiasPlazoFijo(): Integer
++<<abstract>> getParkingBonos(): Integer
+}
+
+class Silver {
+}
+class Gold {
+}
+
+Silver -up-|> Membresia
+Gold -up-|> Membresia
+
+class ProductoFinancieroBuilder {
+-productoActual: ProductoCombinado
+-membresia: Membresia
++ProductoFinancieroBuilder(m: Membresia)
++reset()
++agregarDolares(valorCompra: Real)
++agregarPesos(valorCompra: Real)
++agregarPlazoFijo(dias: Integer)
++agregarBonoBajoRiesgo()
++agregarBonoAltoRiesgo()
++build(): ProductoFinanciero
+}
+
+class Director {
+-builder: ProductoFinancieroBuilder
++construirProducto1()
++construirProducto2()
++construirProducto3()
+}
+
+ProductoFinancieroBuilder ..> ProductoCombinado : construye
+ProductoFinancieroBuilder --> Membresia : conoce
+Director o--> ProductoFinancieroBuilder : usa
+
+@enduml
