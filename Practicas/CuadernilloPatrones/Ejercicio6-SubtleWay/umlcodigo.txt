@@ -8,7 +8,7 @@ abstract SandwichBuilder<<Constructor>>{
 +<<abstract>> colocarPan()
 +<<abstract>> agregarPrincipal()
 +<<abstract>> agregarAderezo()
-+<<abstract>> agregarAderezo()
++<<abstract>> agregarAdicional()
 +obtenerSandwich(): Sandwich
 #agregarIngrediente(c: IIngrediente)
 }
@@ -19,25 +19,25 @@ class BuilderClasico<<Concrete>> {
 + colocarPan()
 + agregarPrincipal()
 + agregarAderezo()
-+ agregarAderezo()
++ agregarAdicional()
 }
 class BuilderVegetariano<<Concrete>> {
 + colocarPan()
 + agregarPrincipal()
 + agregarAderezo()
-+ agregarAderezo()
++ agregarAdicional()
 }
 class BuilderSinTACC<<Concrete>>{
 + colocarPan()
 + agregarPrincipal()
 + agregarAderezo()
-+ agregarAderezo()
++ agregarAdicional()
 }
 class BuilderVegano<<Concrete>>{
 + colocarPan()
 + agregarPrincipal()
 + agregarAderezo()
-+ agregarAderezo()
++ agregarAdicional()
 }
 interface IIngrediente{
 +<<abstract>>calcularPrecio(): Real
