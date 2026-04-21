@@ -1,12 +1,14 @@
 package org.example;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoCombinado {
+public class ProductoCombinado extends ProductoFinanciero {
     private List<ProductoFinanciero> productos;
 
-    public ProductoCombinado(){
+    public ProductoCombinado(LocalDate fechaOperacion){
+        super(fechaOperacion);
         this.productos = new ArrayList<ProductoFinanciero>();
     }
 
@@ -19,8 +21,10 @@ public class ProductoCombinado {
     }
 
     public double retornoInversion(double montoInicial){
-        this.productos.stream()
-                .forEach(p -> montoInicial = p.retornoInversion(montoInicial));
-        return montoInicial;
+        double actualMonto = montoInicial;
+        for (ProductoFinanciero p : this.productos) {
+            actualMonto = p.retornoInversion(actualMonto);
+        }
+        return actualMonto;
     }
 }

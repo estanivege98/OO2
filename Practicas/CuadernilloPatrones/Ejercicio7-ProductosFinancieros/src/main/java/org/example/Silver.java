@@ -1,21 +1,19 @@
 package org.example;
 
-public class Silver extends Membresia{
-
-    public Silver(){
-        super();
-    }
+public class Silver extends Membresia {
 
     @Override
     public double getTasaPlazoFijo() {
-        return 0;
+        return 0.05;
     }
 
+    @Override
     public int getMinimoDiasPlazoFijo(){
-        return 0;
+        return 35;
     }
 
+    @Override
     public int getParkingBonos(){
-        return 0;
+        return 72;
     }
 }

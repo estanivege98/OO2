@@ -2,19 +2,18 @@ package org.example;
 
 public class Gold extends Membresia{
 
-    public Gold(){
-        super();
-    }
-
+    @Override
     public double getTasaPlazoFijo(){
-        return 0.05;
+        return 0.06;
     }
 
+    @Override
     public int getMinimoDiasPlazoFijo(){
-
+        return 30;
     }
 
+    @Override
     public int getParkingBonos(){
-
+        return 24;
     }
 }

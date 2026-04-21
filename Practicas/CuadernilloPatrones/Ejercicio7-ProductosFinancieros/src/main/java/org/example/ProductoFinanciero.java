@@ -1,12 +1,12 @@
 package org.example;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class ProductoFinanciero {
-    private Date fechaOperacion;
+    private LocalDate fechaOperacion;
 
-    public ProductoFinanciero(){
-        this.fechaOperacion = new Date();
+    public ProductoFinanciero(LocalDate fechaOperacion) {
+        this.fechaOperacion = fechaOperacion;
     }
 
     public abstract double retornoInversion(double montoInicial);

@@ -1,23 +1,29 @@
 @startuml
 abstract class ProductoFinanciero {
 -fechaOperacion: Date
++<<create>> ProductoFinanciero(fechaOperacion: Date)
 +<<abstract>> retornoInversion(montoInicial: Real): Real
 }
 class CompraDolares{
 -valorCompra:Real
++<<create>> CompraDolares(fechaOperacion: Date, valorCompra: Real)
 }
 class CompraPesos{
 -valorCompra:Real
++<<create>> CompraPesos(fechaOperacion: Date, valorCompra: Real)
 }
 class PlazoFijo{
 -cantidadDias: Integer
 -interes: Real
++<<create>> PlazoFijo(fechaOperacion: Date, cantidadDias: Integer, interes: Real)
 }
 class CompraBonoBajoRiesgo{
 -parking: Integer
++<<create>> CompraBonoBajoRiesgo(fechaOperacion: Date, parking: Integer)
 }
 class CompraBonoAltoRiesgo{
 -parking: Integer
++<<create>> CompraBonoAltoRiesgo(fechaOperacion: Date, parking: Integer)
 }
 class ProductoCombinado{
 +agregarProducto(p: ProductoFinanciero)
@@ -40,8 +46,14 @@ abstract class Membresia {
 }
 
 class Silver {
++getTasaPlazoFijo(): Real
++getMinimoDiasPlazoFijo(): Integer
++getParkingBonos(): Integer
 }
 class Gold {
++getTasaPlazoFijo(): Real
++getMinimoDiasPlazoFijo(): Integer
++getParkingBonos(): Integer
 }
 
 Silver -up-|> Membresia
@@ -51,7 +63,6 @@ class ProductoFinancieroBuilder {
 -productoActual: ProductoCombinado
 -membresia: Membresia
 +ProductoFinancieroBuilder(m: Membresia)
-+reset()
 +agregarDolares(valorCompra: Real)
 +agregarPesos(valorCompra: Real)
 +agregarPlazoFijo(dias: Integer)
@@ -60,15 +71,7 @@ class ProductoFinancieroBuilder {
 +build(): ProductoFinanciero
 }
 
-class Director {
--builder: ProductoFinancieroBuilder
-+construirProducto1()
-+construirProducto2()
-+construirProducto3()
-}
-
 ProductoFinancieroBuilder ..> ProductoCombinado : construye
 ProductoFinancieroBuilder --> Membresia : conoce
-Director o--> ProductoFinancieroBuilder : usa
 
 @enduml

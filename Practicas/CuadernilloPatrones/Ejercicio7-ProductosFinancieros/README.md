@@ -22,3 +22,7 @@ a) Proponga una solución para que los desarrolladores no tengan que instanciar 
 i) ¿Qué ventaja y que desventaja tiene su solución?
 
 Nota: Para simular el comportamiento de los bonos se puede generar un número aleatorio dentro del rango de variación máxima, reflejando la típica volatilidad del mercado financiero
+
+## Resolucion
+![uml.png](uml.png)
+a) Para evitar que los desarrolladores tengan que instanciar el Composite de Productos financieros explícitamente cada vez que sea necesario crear uno nuevo, se puede implementar un patrón de diseño Factory. Este patrón permitirá crear instancias de productos financieros sin necesidad de conocer la clase concreta que se está instanciando.
