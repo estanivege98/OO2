@@ -1,0 +1,39 @@
+@startuml
+class ToDoItem {
+-name: String
+-tiempoInial: LocalDateTime
+-tiempoFinal: LocalDateTime
+-comentarios: String[]
++<<create>> ToDoItem(name: String)
++start()
++togglePause()+
++finish()
++workedTime(): Duration
++addComment(comment: String)
++getComments(): String[]
++changeState(state: State)
+}
+
+class Pending{
+}
+class InProgress{
+}
+class Paused{
+}
+class Finished{
+}
+
+abstract State{
++<<abstract>>start(context: ToDoItem)
++<<abstract>>togglePause(context: ToDoItem)
++<<abstract>>finish(context: ToDoItem)
++<<abstract>>addComment((context: ToDoItem)
++WorkedTime(context: ToDoItem): LocalDateTime
+}
+
+ToDoItem --> State : estado
+State <|-- Pending
+State <|-- InProgress
+State <|-- Paused
+State <|-- Finished
+@enduml
