@@ -1,0 +1,44 @@
+@startuml
+class Decodificador<<client>>{
+-grilla: List<Pelicula>
+-peliculasVistas: List<Pelicula>
+-sugeridor: ISugeridor
++<<create>>Decodificador(grilla: List<Pelicula>, peliculasVistas: List<Pelicula>, sugeridor: ISugeridor)
++configurarSugeridor(sugeridor: ISugeridor)
++obtenerSugerencias(): List<Pelicula>
+-pelisNoVistas(): List<Pelicula>
+}
+
+interface ISugeridor<<interface>>{
++obtenerSugerencias(peliculasNoVistas: List<Pelicula>, peliculasVistas: List<Pelicula>): List<Pelicula>
+}
+
+class SugeridorNovedad<<strategy>>{
++obtenerSugerencias(peliculasNoVistas: List<Pelicula>, peliculasVistas: List<Pelicula>): List<Pelicula>
+}
+
+class SugeridorSimilaridad<<strategy>>{
++obtenerSugerencias(peliculasNoVistas: List<Pelicula>, peliculasVistas: List<Pelicula>): List<Pelicula>
+}
+
+class SugeridorPuntaje<<strategy>>{
++obtenerSugerencias(peliculasNoVistas: List<Pelicula>, peliculasVistas: List<Pelicula>): List<Pelicula>
+}
+
+class Pelicula<<context>>{
+-nombre: String
+-añoEstreno: int
+-similares: List<Pelicula>
+-puntaje: double
++<<create>>Pelicula(nombre: String, añoEstreno: int, puntaje: double, Pelicula[] similares)
++agregarSimilar(pelicula: Pelicula)
++getSimilares(): Pelicula[]
+}
+
+Decodificador o--> ISugeridor : "usa"
+ISugeridor <|.. SugeridorNovedad
+ISugeridor <|.. SugeridorSimilaridad
+ISugeridor <|.. SugeridorPuntaje
+ISugeridor -right-> Pelicula : "sugiere"
+Pelicula --> Pelicula : "similar a"
+@enduml
