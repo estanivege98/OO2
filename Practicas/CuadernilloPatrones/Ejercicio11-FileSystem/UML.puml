@@ -1,0 +1,60 @@
+@startuml
+
+interface Unidad <<Component>> {
+    +tamanoTotalOcupado(): int
+    +archivoMasGrande(): Archivo
+    +archivoMasNuevo(): Archivo
+    +buscar(nombre: String): Unidad
+    +buscarTodos(nombre: String): List<Unidad>
+    +listadoDeContenido(): String
+}
+
+class Directorio <<Composite>> {
+    -nombre: String
+    -fecha: LocalDate
+    -contenido: List<Unidad>
+    +Directorio(nombre: String)
+    +tamanoTotalOcupado(): int
+    +archivoMasGrande(): Archivo
+    +archivoMasNuevo(): Archivo
+    +buscar(nombre: String): Unidad
+    +buscarTodos(nombre: String): List<Unidad>
+    +listadoDeContenido(): String
+}
+
+class Archivo <<Leaf>> {
+    -nombre: String
+    -fecha: LocalDate
+    -tamano: int
+    +Archivo(nombre: String, tamano: int)
+    +getNombre(): String
+    +getFecha(): LocalDate
+    -getTamano(): int
+    +estaVacio(): boolean
+    +esArchivo(): boolean
+    +tamanoTotalOcupado(): int
+    +archivoMasGrande(): Archivo
+    +archivoMasNuevo(): Archivo
+    +buscar(nombre: String): Unidad
+    +buscarTodos(nombre: String): List<Unidad>
+    +listadoDeContenido(): String
+}
+
+class FileSystem <<Client>> {
+    -unidad: Unidad
+    +FileSystem()
+    +FileSystem(u: Unidad)
+    +tamaoTotalOcupado(): int
+    +archivoMasGrande(): Archivo
+    +archivoMasNuevo(): Archivo
+    +buscar(nombre: String): Unidad
+    +buscarTodos(nombre: String): List<Unidad>
+    +listadoDeContenido(): String
+}
+
+FileSystem o--> Unidad
+Unidad <|.. Directorio
+Unidad <|.. Archivo
+
+
+@enduml
