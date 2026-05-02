@@ -22,7 +22,7 @@ La calculadora debe responder a los siguientes mensajes
      * Asigna un valor para operar. 
      * si hay una operación en curso, el valor será utilizado en la operación
      */
-    public void setValor(double unValor) {...}
+    public void setValor(Real unValor) {...}
 
 
      /**

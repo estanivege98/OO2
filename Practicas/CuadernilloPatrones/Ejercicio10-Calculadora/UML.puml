@@ -1,0 +1,49 @@
+@startuml
+class Calculadora<<context>> {
+    -valorAcumulado: Real
+    -valorActual: Real
+    +<<create>>Calculadora()
+    +getResultado(): String
+    +setValor(valor: Real)
+    +borrar()
+    +mas()
+    +menos()
+    +por()
+    +dividido()
+    +getValorActual(): Real
+    +getValorAcumulado(): Real
+    +setValorActual(valor: Real)
+    +setValorAcumulado(valor: Real)
+    +cambiarEstado(estado: IState)
+}
+interface IState<<interface>> {
++getResultado(contexto: Calculadora): String
++borrar(contexto: Calculadora)
++setValor(contexto: Calculadora, valor: Real)
++mas(contexto: Calculadora)
++menos(contexto: Calculadora)
++por(contexto: Calculadora)
++dividido(contexto: Calculadora)
+}
+
+class EstadoInicial <<state>> {
+}
+class EstadoSumando <<state>> {
+}
+class EstadoRestando <<state>> {
+}
+class EstadoMultiplicando <<state>> {
+}
+class EstadoDividiendo <<state>> {
+}
+class EstadoError <<state>> {
+}
+
+Calculadora --> IState : estado
+IState <|.. EstadoInicial
+IState <|.. EstadoSumando
+IState <|.. EstadoRestando
+IState <|.. EstadoMultiplicando
+IState <|.. EstadoDividiendo
+IState <|.. EstadoError
+@enduml
