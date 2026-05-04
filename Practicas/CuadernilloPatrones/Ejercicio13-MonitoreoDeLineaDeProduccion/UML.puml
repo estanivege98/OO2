@@ -1,0 +1,46 @@
+@startuml
+interface MixingTank {
++heatPower(percentage: int): boolean
++mixerPower(percentage: int): boolean
++purge(): boolean
++upTo(): double
++temperature(): double
+}
+
+class I2CDriver {
+-SCL: int
+-SDL: int
+-tank: MixingTank
+-processStep: ProcessStep
++I2CDriver(SCL: int, SDL: int, tank: MixingTank, processStep: ProcessStep)
++sendStartSeq(): boolean
++sentAddress(address: String): boolean
++sendCommand(command: String): boolean
++sendStopSeq(): boolean
+}
+
+class ProcessStep <<abstract>> {
+-result: boolean
++execute(tank: MixingTank)
++isDone(): boolean
++setSuccess()
++setFailure()
+{abstract} +basicExecute(tank: MixingTank): boolean
+#delay(sec: int)
+}
+
+class LightMix{
++basicExecute(tank: MixingTank): boolean
+}
+
+class Purge{
++basicExecute(tank: MixingTank): boolean
+}
+
+LightMix -up-|> ProcessStep
+Purge -up-|> ProcessStep
+
+I2CDriver --> MixingTank
+I2CDriver --> ProcessStep
+ProcessStep ..> MixingTank : usa
+@enduml
