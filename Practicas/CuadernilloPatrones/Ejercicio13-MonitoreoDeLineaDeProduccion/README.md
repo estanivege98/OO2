@@ -15,7 +15,7 @@ Se detalla a continuación el pseudocódigo del funcionamiento de estas etapas.
 
 | clase LightMix | clase Purge | 
 |---|---|
-| basicExecute(tank:MixingTank){<br>return tank.heatPower(20%)<br>&& tank.mixerPower(5%)<br>} | basicExecute(tank:MixingTank){<br>return tank.heatPower(0%)<br>&& tank.mixerPower(0%)<br>&& tank.purge()<br>} |
+| basicExecute(tank:MixingTank){ return tank.heatPower(20%) && tank.mixerPower(5%) } | basicExecute(tank:MixingTank){ return tank.heatPower(0%) && tank.mixerPower(0%) && tank.purge() } |
 
 El fabricante del tanque provee una librería que permite controlar el tanque desde una computadora. Se tiene para ello la siguiente clase abstracta que ofrece una interfaz de alto nivel con las operaciones básicas del tanque y permite la comunicación entre el tanque y la computadora a través del protocolo I2C
 ![umlreadmepng2.png](umlreadmepng2.png)
@@ -43,7 +43,7 @@ Transferencia de calor según el nivel de potencia recibido en heatPower (es dec
 
 | clase LightMix | clase Purge | 
 |---|---|
-| basicExecute(tank:MixingTank){<br>&nbsp;&nbsp;temp = tank.temperature() <br>&nbsp;&nbsp;tank.heatPower(100%)<br>&nbsp;&nbsp;delay(2sec)<br>&nbsp;&nbsp;if(tank.temperature()-temp == 10 ){<br>&nbsp;&nbsp;&nbsp;&nbsp;tank.mixerPower(5%)<br>&nbsp;&nbsp;&nbsp;&nbsp;return true<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;else {<br>&nbsp;&nbsp;&nbsp;&nbsp;return false<br>&nbsp;&nbsp;}<br>} | basicExecute(tank:MixingTank){<br>&nbsp;&nbsp;if (tank.upTo() == 0) {<br>&nbsp;&nbsp;&nbsp;&nbsp;return false<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;else {<br>&nbsp;&nbsp;&nbsp;&nbsp;tank.heatPower(0%)<br>&nbsp;&nbsp;&nbsp;&nbsp;tank.mixerPower(0%)<br>&nbsp;&nbsp;&nbsp;&nbsp;tank.purge()<br>&nbsp;&nbsp;&nbsp;&nbsp;delay(4sec)<br>&nbsp;&nbsp;&nbsp;&nbsp;if (tank.upTo() != 0){<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;return true<br>&nbsp;&nbsp;}<br>} |
+| basicExecute(tank:MixingTank){ &nbsp;&nbsp;temp = tank.temperature()  &nbsp;&nbsp;tank.heatPower(100%) &nbsp;&nbsp;delay(2sec) &nbsp;&nbsp;if(tank.temperature()-temp == 10 ){ &nbsp;&nbsp;&nbsp;&nbsp;tank.mixerPower(5%) &nbsp;&nbsp;&nbsp;&nbsp;return true &nbsp;&nbsp;} &nbsp;&nbsp;else { &nbsp;&nbsp;&nbsp;&nbsp;return false &nbsp;&nbsp;} } | basicExecute(tank:MixingTank){ &nbsp;&nbsp;if (tank.upTo() == 0) { &nbsp;&nbsp;&nbsp;&nbsp;return false &nbsp;&nbsp;} &nbsp;&nbsp;else { &nbsp;&nbsp;&nbsp;&nbsp;tank.heatPower(0%) &nbsp;&nbsp;&nbsp;&nbsp;tank.mixerPower(0%) &nbsp;&nbsp;&nbsp;&nbsp;tank.purge() &nbsp;&nbsp;&nbsp;&nbsp;delay(4sec) &nbsp;&nbsp;&nbsp;&nbsp;if (tank.upTo() != 0){ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false &nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;&nbsp;return true &nbsp;&nbsp;} } |
 
 ## Tareas
 1. Actualice la implementación de las clases LightMix y Purge y de los test cases cubriendo casos de éxito y falla. 

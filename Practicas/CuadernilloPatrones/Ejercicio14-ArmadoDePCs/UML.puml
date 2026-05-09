@@ -1,0 +1,98 @@
+@startuml
+class Catalogo{
++getComponente(descripcion: String): Componente
+}
+
+class Componente{
+-nombre: String
+-descripcion: String
+-precio: Real
+-consumo: Real
++getNombre(): String
++getDescripcion(): String
++getPrecio(): Real
++getConsumo(): Real
+}
+
+class Computadora{
++<<create>>Computadora()
++agregarComponente(componente: Componente)
++getComponentes(): List<Componente>
++getConsumo(): Real
++getPrecio(): Real
+}
+
+class Presupuesto{
+-cliente: String
+-fecha: Date
++<<create>>Presupuesto(cliente: String, computadora: Computadora)
++getCliente(): String
++getFecha(): Date
++getComputadora(): Computadora
+}
+
+interface IBuilderComputadora<<Builder>>{
++buildProcesador()
++buildRAM()
++buildAlmacenamiento()
++buildGPU()
++buildGabinete()
++getComputadora(): Computadora
+}
+
+class BuilderBasico<<Builder>>{
+-computadora: Computadora
++<<create>>BuilderBasico(catalogo: Catalogo)
++buildProcesador()
++buildRAM()
++buildAlmacenamiento()
++buildGPU()
++buildGabinete()
++getComputadora(): Computadora
+}
+
+class BuilderIntermedio<<Builder>>{
+-computadora: Computadora
++<<create>>BuilderIntermedio(catalogo: Catalogo)
++buildProcesador()
++buildRAM()
++buildAlmacenamiento()
++buildGPU()
++buildGabinete()
++getComputadora(): Computadora
+-agregarFuente()
+}
+
+class BuilderGamer<<Builder>>{
+-computadora: Computadora
++<<create>>BuilderGamer(catalogo: Catalogo)
++buildProcesador()
++buildRAM()
++buildAlmacenamiento()
++buildGPU()
++buildGabinete()
++getComputadora(): Computadora
+-agregarFuente()
+-agergarPadTermico()
+-agregarCooler()
+}
+
+class Director<<Director>>{
+-builder: IBuilderComputadora
++<<create>>Director(builder: IBuilderComputadora)
++cambiarBuilder(builder: IBuilderComputadora)
++construirComputadora(): Computadora
+}
+
+Catalogo --> Componente : -componentes *
+IBuilderComputadora <|.. BuilderBasico
+IBuilderComputadora <|.. BuilderIntermedio
+IBuilderComputadora <|.. BuilderGamer
+Director o--> IBuilderComputadora : -builder
+BuilderBasico --> Catalogo : -catalogo
+BuilderIntermedio --> Catalogo : -catalogo
+BuilderGamer --> Catalogo : -catalogo
+IBuilderComputadora -left-> Computadora : -computadora
+Presupuesto --> Computadora : -computadora
+
+@enduml
