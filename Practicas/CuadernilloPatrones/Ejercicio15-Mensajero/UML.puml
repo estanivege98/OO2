@@ -1,0 +1,40 @@
+@startuml
+class Mensajero <<Context>>{
+    +Mensajero(cifrador: ICifrador)
+    +enviarMensaje(mensaje: String): String
+    +recibirMensaje(mensaje: String): String
+    +setCifrador(cifrador: ICifrador): void
+}
+
+interface ICifrador <<Strategy>>{
+    +cifrar(mensaje: String): String
+    +descifrar(mensaje: String): String
+}
+
+class FeistelAdapter <<Adapter>> <<ConcreteStrategy>>{
+    -clave: String
+    +cifrar(mensaje: String): String
+    +descifrar(mensaje: String): String
+}
+
+class RC4Adapter <<Adapter>> <<ConcreteStrategy>>{
+    -clave: String
+    +cifrar(mensaje: String): String
+    +descifrar(mensaje: String): String
+}
+
+class FeistelCipher <<Adaptee>>{
++encode(messaje: String): String
+}
+
+class RC4 <<Adaptee>>{
++encrypt(messaje: String, key: String): String
++decrypt(mensajeCifrado: String, key: String): String
+}
+
+Mensajero --> ICifrador : -cifrador
+ICifrador <|.. FeistelAdapter
+ICifrador <|.. RC4Adapter
+FeistelAdapter --> FeistelCipher : -feistelCipher
+RC4Adapter --> RC4 : -rc4
+@enduml
