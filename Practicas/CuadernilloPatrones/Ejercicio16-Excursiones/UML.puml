@@ -1,0 +1,48 @@
+@startuml
+Class Excursion <<Context>>{
+-nombre: String
+-fechaInicio: Date
+-fechaFin: Date
+-costo: Real
+-cupoMaximo: Integer
+-cupoMinimo: Integer
++<<Create>> Excursion(nombre: String, fechaInicio: Date, fechaFin: Date, costo: Real, cupoMaximo: Integer, cupoMinimo: Integer)
++inscribir(unUsuario: Usuario)
++obtenerInformacion() : String
++cantidadInscriptos() : Integer
+}
+
+Interface ISatateExcursion <<State>>{
++inscribir(Usuario unUsuario, Excursion e)
++obtenerInformacion(Excursion e) : String
+}
+
+class ExcursionLleno <<ConcreteStateC>>{
++inscribir(Usuario unUsuario, Excursion e)
++obtenerInformacion(Excursion e) : String
+}
+class ExcursionProvisorio <<ConcreteStateA>>{
++inscribir(Usuario unUsuario, Excursion e)
++obtenerInformacion(Excursion e) : String
+}
+class ExcursionDefinitivo <<ConcreteStateB>>{
++inscribir(Usuario unUsuario, Excursion e)
++obtenerInformacion(Excursion e) : String
+}
+
+class Usuario{
+-nombre: String
+-apellido: String
+-email: String
++<<Create>> Usuario(nombre: String, apellido: String, email: String)
++getNombre() : String
++getApellido() : String
++getEmail() : String
+}
+
+ExcursionLleno .right.|> ISatateExcursion
+ExcursionProvisorio .up.|> ISatateExcursion
+ExcursionDefinitivo .up.|> ISatateExcursion
+Excursion o-- ISatateExcursion : estadoExcursion
+Excursion -left-> Usuario : inscribir
+@enduml
