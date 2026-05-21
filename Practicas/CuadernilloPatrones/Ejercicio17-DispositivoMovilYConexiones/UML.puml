@@ -1,0 +1,42 @@
+@startuml
+Class Dispositivo<<Context>>{
++send(data: String): String
+}
+interface Connection<<Strategy>>{
+    +sendData(data: String, crc: integer): String
+    +pict(): String
+}
+class WifiConn{
+-pict: String
++sendData(data: String, crc: integer): String
+}
+class Display{
++showBanner(img: String): String
+}
+class CR16_Calculator{
++crcFor(data: String): integer
+}
+class Ringer{
++ring()
+}
+
+class 4GAdapter<<Adapter>>{
++send(data: String, crc: integer): String
+}
+class 4GConnection<<Adaptee>>{
+-symb: String
++transmit(data: String, crc: integer): String
+}
+
+class CR32_Adapter<<Adapter>>{
++crcFor(data: String): integer
+}
+class CR32_Calculator<<Adaptee>>{
++crcFor(data: String): integer
+}
+
+4GAdapter --> 4GConnection
+CR32_Adapter --> CR32_Calculator
+Dispositivo --> Connection : connection
+
+@enduml
