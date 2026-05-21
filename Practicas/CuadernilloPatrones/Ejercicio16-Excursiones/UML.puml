@@ -44,5 +44,6 @@ ExcursionLleno .right.|> ISatateExcursion
 ExcursionProvisorio .up.|> ISatateExcursion
 ExcursionDefinitivo .up.|> ISatateExcursion
 Excursion o-- ISatateExcursion : estadoExcursion
-Excursion -left-> Usuario : inscribir
+Excursion -left-> Usuario : -listaDefinitiva 0..*
+Excursion -left-> Usuario : -listaProvisorio 0..*
 @enduml
