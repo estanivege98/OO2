@@ -1,49 +1,72 @@
 @startuml
-Class Excursion <<Context>>{
--nombre: String
--fechaInicio: Date
--fechaFin: Date
--costo: Real
--cupoMaximo: Integer
--cupoMinimo: Integer
-+<<Create>> Excursion(nombre: String, fechaInicio: Date, fechaFin: Date, costo: Real, cupoMaximo: Integer, cupoMinimo: Integer)
-+inscribir(unUsuario: Usuario)
-+obtenerInformacion() : String
-+cantidadInscriptos() : Integer
+
+class Excursion <<Context>> {
+  -listaProvisorio: List<Usuario>
+  -listaDefinitiva: List<Usuario>
+  -nombre: String
+  -fechaInicio: LocalDate
+  -fechaFin: LocalDate
+  -precio: double
+  -cupoMinimo: int
+  -cupoMaximo: int
+  -estadoExcursion: IStateExcursion
+  -puntodeEncuentro: String
+
+  +Excursion(nombre: String, fechaInicio: LocalDate, fechaFin: LocalDate, precio: double, cupoMinimo: int, cupoMaximo: int, estadoExcursion: IStateExcursion, puntodeEncuentro: String)
+  +setEstadoExcursion(estadoExcursion: IStateExcursion): void
+  +inscribir(unUsuario: Usuario): void
+  +obtenerInformacion(): String
+  +agregarInscripto(unUsuario: Usuario): void
+  +moverProvisorioADefinitivo(): void
+  +seAlcanzoCupoMaximo(): boolean
+  +seAlcanzoCupoMinimo(): boolean
+  +obtenerMailInsciptos(): List<String>
+  +faltantesParaMinimo(): int
+  +faltantesParaMaximo(): int
+  +getNombre(): String
+  +getFechaInicio(): LocalDate
+  +getFechaFin(): LocalDate
+  +getPrecio(): double
+  +getPuntodeEncuentro(): String
 }
 
-Interface ISatateExcursion <<State>>{
-+inscribir(Usuario unUsuario, Excursion e)
-+obtenerInformacion(Excursion e) : String
+interface IStateExcursion <<State>> {
+  +inscribir(unUsuario: Usuario, excursion: Excursion): void
+  +obtenerInformacion(excursion: Excursion): String
 }
 
-class ExcursionLleno <<ConcreteStateC>>{
-+inscribir(Usuario unUsuario, Excursion e)
-+obtenerInformacion(Excursion e) : String
-}
-class ExcursionProvisorio <<ConcreteStateA>>{
-+inscribir(Usuario unUsuario, Excursion e)
-+obtenerInformacion(Excursion e) : String
-}
-class ExcursionDefinitivo <<ConcreteStateB>>{
-+inscribir(Usuario unUsuario, Excursion e)
-+obtenerInformacion(Excursion e) : String
+class ExcursionProvisorio <<ConcreteState>> {
+  +inscribir(unUsuario: Usuario, excursion: Excursion): void
+  +obtenerInformacion(excursion: Excursion): String
 }
 
-class Usuario{
--nombre: String
--apellido: String
--email: String
-+<<Create>> Usuario(nombre: String, apellido: String, email: String)
-+getNombre() : String
-+getApellido() : String
-+getEmail() : String
+class ExcursionDefinitivo <<ConcreteState>> {
+  +inscribir(unUsuario: Usuario, excursion: Excursion): void
+  +obtenerInformacion(excursion: Excursion): String
 }
 
-ExcursionLleno .right.|> ISatateExcursion
-ExcursionProvisorio .up.|> ISatateExcursion
-ExcursionDefinitivo .up.|> ISatateExcursion
-Excursion o-- ISatateExcursion : estadoExcursion
-Excursion -left-> Usuario : -listaDefinitiva 0..*
-Excursion -left-> Usuario : -listaProvisorio 0..*
+class ExcursionLleno <<ConcreteState>> {
+  +inscribir(unUsuario: Usuario, excursion: Excursion): void
+  +obtenerInformacion(excursion: Excursion): String
+}
+
+class Usuario {
+  -nombre: String
+  -apellido: String
+  -email: String
+
+  +Usuario(nombre: String, apellido: String, email: String)
+  +getNombre(): String
+  +getApellido(): String
+  +getEmail(): String
+}
+
+Excursion --> IStateExcursion : estadoExcursion
+Excursion --> Usuario : listaProvisorio 0..*
+Excursion --> Usuario : listaDefinitiva 0..*
+
+ExcursionProvisorio ..|> IStateExcursion
+ExcursionDefinitivo ..|> IStateExcursion
+ExcursionLleno ..|> IStateExcursion
+
 @enduml
