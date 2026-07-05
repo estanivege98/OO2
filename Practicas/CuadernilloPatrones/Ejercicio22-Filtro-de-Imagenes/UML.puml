@@ -1,0 +1,49 @@
+@startuml
+class PNGFilterLauncher {
+-inputFile: File
+-outputFile: File
++main(args: String[])
+processArgs(args: String[])
+initializeFilters()
+}
+
+abstract Filter <<interface>> {
++<<abstract>> filter(image: BufferedImage): BufferedImage
+}
+
+class Artifacter <<Decorator>> {
+-tempFile: File
+-compressionQuality: float
++filter(image: BufferedImage): BufferedImage
+}
+class Dull <<Decorator>>{
++filter(image: BufferedImage): BufferedImage
+}
+class Rainbow <<Decorator>> {
++filter(image: BufferedImage): BufferedImage
+}
+class Repeater <<Decorator>> {
++filter(image: BufferedImage): BufferedImage
+}
+class RGBShifter <<Decorator>> {
+-<<final>> X_REPEAT: Integer
+-<<final>> Y_REPEAT: Integer
++filter(image: BufferedImage): BufferedImage
++shiftValue(original, shiftMagnitude: Integer): Integer
+}
+class RGBShiftRepeater <<Decorator>> {
+-<<final>> X_REPEAT: Integer
+-<<final>> Y_REPEAT: Integer
++filter(image: BufferedImage): BufferedImage
+}
+
+PNGFilterLauncher --> Filter : -activeFilters 1..*
+PNGFilterLauncher --> Filter : -filters 1..*
+Filter <|-- Artifacter
+Filter <|-- Dull
+Filter <|-- Rainbow
+Filter <|-- Repeater
+Filter <|-- RGBShifter
+Filter <|-- RGBShiftRepeater
+RGBShiftRepeater o--> RGBShifter : uses
+@enduml

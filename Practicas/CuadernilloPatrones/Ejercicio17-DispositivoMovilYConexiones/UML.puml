@@ -1,42 +1,71 @@
 @startuml
-Class Dispositivo<<Context>>{
-+send(data: String): String
+
+class Dispositivo <<Context>> {
+    +send(data: String): String
+    +conectarCon(c: Connection)
+    +configurarCRC(c: CalculadorCRC)
 }
-interface Connection<<Strategy>>{
-    +sendData(data: String, crc: integer): String
+
+' --- Patrón Strategy para Conexiones ---
+interface Connection <<Strategy>> {
+    +sendData(data: String, crc: long): String
     +pict(): String
 }
-class WifiConn{
--pict: String
-+sendData(data: String, crc: integer): String
-}
-class Display{
-+showBanner(img: String): String
-}
-class CR16_Calculator{
-+crcFor(data: String): integer
-}
-class Ringer{
-+ring()
+
+class WifiConn {
+    -pict: String
+    +sendData(data: String, crc: long): String
+    +pict(): String
 }
 
-class 4GAdapter<<Adapter>>{
-+send(data: String, crc: integer): String
-}
-class 4GConnection<<Adaptee>>{
--symb: String
-+transmit(data: String, crc: integer): String
+class 4GAdapter <<Adapter>> {
+    +sendData(data: String, crc: long): String
+    +pict(): String
 }
 
-class CR32_Adapter<<Adapter>>{
-+crcFor(data: String): integer
-}
-class CR32_Calculator<<Adaptee>>{
-+crcFor(data: String): integer
+class 4GConnection <<Adaptee>> {
+    -symb: String
+    +transmit(data: String, crc: int): String
+    +symb(): String
 }
 
-4GAdapter --> 4GConnection
-CR32_Adapter --> CR32_Calculator
-Dispositivo --> Connection : connection
+' --- Patrón Strategy para CRC ---
+interface CalculadorCRC <<Strategy>> {
+    +crcFor(data: String): long
+}
 
+class CRC16_Calculator {
+    +crcFor(data: String): long
+}
+
+class CRC32_Adapter <<Adapter>> {
+    +crcFor(data: String): long
+}
+
+class CRC32_Calculator <<Adaptee>> {
+    +crcFor(data: String): int
+}
+
+' --- Clases de Soporte ---
+class Display {
+    +showBanner(img: String)
+}
+
+class Ringer {
+    +ring()
+}
+
+' --- Relaciones ---
+Connection <|.. WifiConn
+Connection <|.. 4GAdapter
+4GAdapter --> 4GConnection : -connection4G
+
+CalculadorCRC <|.. CRC16_Calculator
+CalculadorCRC <|.. CRC32_Adapter
+CRC32_Adapter --> CRC32_Calculator : -calculator32
+
+Dispositivo --> Connection : -connection
+Dispositivo --> CalculadorCRC : -crcCalculator
+Dispositivo --> Display : -display
+Dispositivo --> Ringer : -ringer
 @enduml

@@ -1,0 +1,111 @@
+@startuml
+
+' --- Producto ---
+class Personaje<<Product>> {
+    -nombre: String
+    -vida: Integer
+    +setNombre(n: String)
+    +setArma(a: String)
+    +setArmadura(a: String)
+    +addHabilidad(h: String)
+    +enfrentar(oponente: Personaje)
+    #tieneVida(): boolean
+    #getArmadura(): Armadura
+    #controlarSiTieneVida()
+    #restarVida(danio: Integer)
+    -atacar(oponente: Personaje)
+}
+
+' --- Interfaz Builder ---
+interface PersonajeBuilder <<Builder>> {
+    +equiparArmadura()
+    +equiparArma()
+    +agregarHabilidades()
+    +obtenerPersonaje(): Personaje
+}
+
+' --- Builders Concretos (Ejercicio 18) ---
+class GuerreroBuilder <<ConcreteBuilder>> implements PersonajeBuilder {
+    -personaje: Personaje
+    +equiparArmadura() // Acero
+    +equiparArma() // Espada
+    +obtenerPersonaje(): Personaje
+}
+
+class  ArqueroBuilder <<ConcreteBuilder>> implements PersonajeBuilder  {
+    -personaje: Personaje
+    +equiparArmadura() // Cuero
+    +equiparArma() // Arco
+    +agregarHabilidades()
+    +obtenerPersonaje(): Personaje
+}
+
+class MagoBuilder <<ConcreteBuilder>> implements PersonajeBuilder {
+    -personaje: Personaje
+    +equiparArmadura() // Túnica
+    +equiparArma() // Bastón
+    +agregarHabilidades()
+    +obtenerPersonaje(): Personaje
+}
+
+' --- Builder Concreto (Ejercicio 18b) ---
+class ThoorBuilder <<ConcreteBuilder>> implements PersonajeBuilder {
+    -personaje: Personaje
+    +equiparArmadura() // Hierro
+    +equiparArma() // Martillo
+    +agregarHabilidades() // Rayos y Distancia
+    +obtenerPersonaje(): Personaje
+}
+
+' --- Director ---
+class DirectorPersonajes <<Director>> {
+    +construirPersonaje(nombre: String): Personaje
+}
+
+interface Arma {
++obtenerDaño(armadura: Armadura): Integer
+}
+
+class Baston{
+}
+class Espada{
+}
+class Arco{
+}
+class Martillo{
+}
+
+interface Armadura {
++calcularDaño(arco: Arco): Integer
++calcularDaño(espada: Espada): Integer
++calcularDaño(baston: Baston): Integer
++calcularDaño(martillo: Martillo): Integer
+}
+
+class ArmaduraAcero{
+}
+class ArmaduraCuero{
+}
+class ArmaduraHierro{
+}
+
+class Habilidad{
+-nombre: String
++<<create>> Habilidad(nombre: String)
+}
+
+' --- Relaciones ---
+DirectorPersonajes -left->  PersonajeBuilder : builder
+PersonajeBuilder .left.> Personaje
+Personaje .left.> Arma : arma
+Personaje --> Habilidad : habilidades 0..*
+Personaje .up.> Armadura : armadura
+Arma <|.. Baston
+Arma <|.. Espada
+Arma <|.. Arco
+Arma <|.. Martillo
+Armadura <|.up. ArmaduraAcero
+Armadura <|.up. ArmaduraCuero
+Armadura <|.up. ArmaduraHierro
+
+@enduml
