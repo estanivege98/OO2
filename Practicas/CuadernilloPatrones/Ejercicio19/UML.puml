@@ -1,0 +1,57 @@
+@startuml
+
+class  FileOO2<<ConcreteComponent>>{
+-nombre: String
+-extension: String
+-tamaño: Integer
+-fechaCreacion: Date
+-fechaModificacion: Date
+-permisos: String
++FileOO2(nombre: String, extension: String, tamaño: Integer, fechaCreacion: Date, fechaModificacion: Date, permisos: String)
++prettyPrint(): String
++getFile(): String
++getNombre(): String
++getExtension(): String
++getTamaño(): Integer
++getFechaCreacion(): Date
++getFechaModificacion(): Date
++getPermisos(): String
+}
+interface IFile<<Component>>{
++prettyPrint(): String
++getFile(): FileOO2
+}
+
+abstract class DecoratorFile <<Decorator>> implements IFile
+{
++DecoratorFile(component: IFile)
++getComponent(): IFile
++<<abstract>>prettyPrint(): String
++getFile(): FileOO2
+}
+
+
+class DecoratorExtension <<ConcreteDecorator>> extends DecoratorFile{
++DecoratorExtension(component: IFile)
++prettyPrint(): String
+}
+class DecoratorTamaño <<ConcreteDecorator>> extends DecoratorFile{
++DecoratorTamaño(component: IFile)
++prettyPrint(): String
+}
+class DecoratorFechaCreacion <<ConcreteDecorator>> extends DecoratorFile{
++DecoratorFechaCreacion(component: IFile)
++prettyPrint(): String
+}
+class DecoratorModificacion <<ConcreteDecorator>> extends DecoratorFile{
++DecoratorModificacion(component: IFile)
++prettyPrint(): String
+}
+class DecoratorPermisos <<ConcreteDecorator>> extends DecoratorFile{
++DecoratorPermisos(component: IFile)
++prettyPrint(): String
+}
+
+DecoratorFile o--> IFile : component
+FileOO2 .up.|> IFile
+@enduml
