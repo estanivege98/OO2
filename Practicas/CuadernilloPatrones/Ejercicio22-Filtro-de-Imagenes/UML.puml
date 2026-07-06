@@ -1,5 +1,5 @@
 @startuml
-class PNGFilterLauncher {
+class PNGFilterLauncher<<Context>> {
 -inputFile: File
 -outputFile: File
 +main(args: String[])
@@ -7,31 +7,31 @@ processArgs(args: String[])
 initializeFilters()
 }
 
-abstract Filter <<interface>> {
+abstract Filter <<Strategy>> {
 +<<abstract>> filter(image: BufferedImage): BufferedImage
 }
 
-class Artifacter <<Decorator>> {
+class Artifacter <<ConcreteStrategy>> {
 -tempFile: File
 -compressionQuality: float
 +filter(image: BufferedImage): BufferedImage
 }
-class Dull <<Decorator>>{
+class Dull <<ConcreteStrategy>>{
 +filter(image: BufferedImage): BufferedImage
 }
-class Rainbow <<Decorator>> {
+class Rainbow <<ConcreteStrategy>> {
 +filter(image: BufferedImage): BufferedImage
 }
-class Repeater <<Decorator>> {
+class Repeater <<ConcreteStrategy>> {
 +filter(image: BufferedImage): BufferedImage
 }
-class RGBShifter <<Decorator>> {
+class RGBShifter <<ConcreteStrategy>> {
 -<<final>> X_REPEAT: Integer
 -<<final>> Y_REPEAT: Integer
 +filter(image: BufferedImage): BufferedImage
 +shiftValue(original, shiftMagnitude: Integer): Integer
 }
-class RGBShiftRepeater <<Decorator>> {
+class RGBShiftRepeater <<ConcreteStrategy>> {
 -<<final>> X_REPEAT: Integer
 -<<final>> Y_REPEAT: Integer
 +filter(image: BufferedImage): BufferedImage
