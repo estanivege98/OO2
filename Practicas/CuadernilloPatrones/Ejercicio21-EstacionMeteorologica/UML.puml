@@ -1,0 +1,54 @@
+@startuml
+
+interface WeatherData <<Component>> {
+    + getTemperatura(): double
+    + getPresion(): double
+    + getRadiacionSolar(): double
+    + getTemperaturas(): List<Double>
+    + displayData(): String
+}
+
+class HomeWeatherStation <<ConcreteComponent>> {
+    # temperatura: Real
+    # presion: Real
+    # radiacionSolar: Real
+    # temperaturas: List<Real>
+    + getTemperatura(): double
+    + getPresion(): double
+    + getRadiacionSolar(): double
+    + getTemperaturas(): List<Double>
+    + displayData(): String
+}
+
+abstract class WeatherDecorator <<Decorator>> {
+    # component: WeatherData
+    + <<create>> WeatherDecorator(w: WeatherData)
+    + getTemperatura(): double
+    + getPresion(): double
+    + getRadiacionSolar(): double
+    + getTemperaturas(): List<Double>
+    + displayData(): String
+}
+
+class CelsiusDecorator {
+    + getTemperatura(): double // Realiza conversión
+    + displayData(): String // Cambia "F" por "C" y usa conversion
+}
+
+class PromedioDecorator {
+    + displayData(): String // super.displayData() + "Promedio: ..."
+}
+
+class MinMaxDecorator {
+    + displayData(): String // super.displayData() + "Mínimo: ... Máximo: ..."
+}
+
+' Relaciones
+WeatherData <|.. HomeWeatherStation
+WeatherData <|.. WeatherDecorator
+WeatherDecorator o--> WeatherData : component
+WeatherDecorator <|-- CelsiusDecorator
+WeatherDecorator <|-- PromedioDecorator
+WeatherDecorator <|-- MinMaxDecorator
+
+@enduml
