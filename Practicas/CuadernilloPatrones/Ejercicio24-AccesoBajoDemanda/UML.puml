@@ -1,0 +1,36 @@
+@startuml
+
+interface PersistableUser<<Subject>>{
++getUsername(): String
++getEmail(): String
++getPosts(): Post[*]
+}
+
+class User<<RealSubject>> implements PersistableUser{
+-username: String
+-email: String
++getUsername(): String
++getEmail(): String
++getPosts(): Post[*]
+}
+
+class UserProxy<<Proxy>> implements PersistableUser{
++getUsername(): String
++getEmail(): String
++getPosts(): Post[*]
+}
+
+class Post{
+-text: String
+}
+
+class UserRepository{
++findUserByUsername(username: String): UserPersistable
+}
+class PostRepository{
++findPostsByUsername(username: UserPersistable): Post[*]
+}
+
+UserProxy --> User : -sujetoReal
+User --> Post : -posts*
+@enduml

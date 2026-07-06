@@ -1,0 +1,68 @@
+@startuml
+interface IMamifero {
++getIdentificador(): String
++setIdentificador(id: String)
++getEspecie(): String
++setEspecie(especie: String)
++getFechaNacimiento(): Date
++setFechaNacimiento(fecha: Date)
++getPadre(): Mamifero
++setPadre(padre: Mamifero)
++getMadre(): Mamifero
++setMadre(madre: Mamifero)
++getAbueloMaterno(): Mamifero
++getAbuelaMaterna(): Mamifero
++getAbueloPaterno(): Mamifero
++getAbuelaPaterna(): Mamifero
++tieneComoAncestroA(unMamifero: Mamifero): boolean
+}
+
+class Mamifero implements IMamifero {
+-identificador: String
+-especie: String
+-fechaNacimiento: Date
+-padre: Mamifero
+-madre: Mamifero
++<<create>> Mamifero(id: String, especie: String, fechaNacimiento: Date)
++<<create>> Mamifero(id: String)
++getIdentificador(): String
++setIdentificador(id: String)
++getEspecie(): String
++setEspecie(especie: String)
++getFechaNacimiento(): Date
++setFechaNacimiento(fecha: Date)
++getPadre(): Mamifero
++setPadre(padre: Mamifero)
++getMadre(): Mamifero
++setMadre(madre: Mamifero)
++getAbueloMaterno(): Mamifero
++getAbuelaMaterna(): Mamifero
++getAbueloPaterno(): Mamifero
++getAbuelaPaterna(): Mamifero
++tieneComoAncestroA(unMamifero: IMamifero): boolean
+}
+
+class Desconocido implements IMamifero{
++<<create>> Desconocido()
++getIdentificador(): String
++setIdentificador(id: String)
++getEspecie(): String
++setEspecie(especie: String)
++getFechaNacimiento(): Date
++setFechaNacimiento(fecha: Date)
++getPadre(): Mamifero
++setPadre(padre: Mamifero)
++getMadre(): Mamifero
++setMadre(madre: Mamifero)
++getAbueloMaterno(): Mamifero
++getAbuelaMaterna(): Mamifero
++getAbueloPaterno(): Mamifero
++getAbuelaPaterna(): Mamifero
++tieneComoAncestroA(unMamifero: IMamifero): boolean
+}
+
+Mamifero o-> IMamifero : -padre
+Mamifero o-> IMamifero : -madre
+
+
+@enduml
