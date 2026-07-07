@@ -3,23 +3,32 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrestamoPrendario implements IBien{
-    private List<IBien> bienes;
-
-    public PrestamoPrendario(List<IBien> bienes) {
+public class PrestamoPrendario extends Bien{
+    private List<Bien> bienes;
+    private static final double liquedez = 0.5;
+    public PrestamoPrendario(List<Bien> bienes) {
+        super(liquedez);
         this.bienes = bienes;
     }
 
     public PrestamoPrendario() {
-        this.bienes = new ArrayList<IBien>();
+        super(liquedez);
+        this.bienes = new ArrayList<Bien>();
     }
 
     @Override
     public double calcularValor() {
-        return this.valorPrendario();
+        return this.bienes.stream().mapToDouble(bien -> bien.valorPrendario()).sum()    ;
     }
 
     public double valorPrendario() {
-        return (this.bienes.stream().mapToDouble(bien -> bien.valorPrendario()).sum() * 0.5);
+        return ( calcularValor()* liquedez );
+    }
+
+    public void agregarBien(Bien bien){
+        this.bienes.add(bien);
+    }
+    public void eliminarBien(Bien bien){
+        this.bienes.remove(bien);
     }
 }

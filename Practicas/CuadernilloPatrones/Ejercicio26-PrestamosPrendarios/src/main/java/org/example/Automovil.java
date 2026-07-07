@@ -3,12 +3,13 @@ package org.example;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Automovil implements IBien {
+public class Automovil extends Bien {
     private LocalDate modelo;
     private int kilometraje;
     private double costo0km;
 
-    public Automovil(LocalDate modelo, int kilometraje, double costo0km) {
+    public Automovil(double liquedez, LocalDate modelo, int kilometraje, double costo0km) {
+        super(liquedez);
         this.modelo = modelo;
         this.kilometraje = kilometraje;
         this.costo0km = costo0km;
@@ -18,11 +19,6 @@ public class Automovil implements IBien {
     public double calcularValor() {
         double valor = this.costo0km * this.kilometraje;
         return valor - ( (valor * 0.1) * this.aniosAntiguedad());
-    }
-
-    @Override
-    public double valorPrendario() {
-        return 0.7 * this.calcularValor();
     }
 
     private int aniosAntiguedad(){

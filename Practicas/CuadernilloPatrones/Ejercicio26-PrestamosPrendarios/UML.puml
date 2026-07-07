@@ -1,40 +1,39 @@
 @startuml
 
-interface IBien<<Component>> {
-+calcularValor(): Real
-+coeficienteLiquidez(): Real
+abstract Bien<<Component, AbstractClass>> {
+-liquidez: Real
++<<abstract>>calcularValor(): Real
++valorPrendario(): Real
 }
-class Automovil<<Leaf>> implements IBien {
+class Automovil<<Leaf, ConcreteClass>> extends Bien {
 -modelo: Date
 -kilometraje: Integer
 -costo0km: Real
 +calcularValor(): Real
-+coeficienteLiquidez(): Real
 -aniosAntiguedad(): Integer
 }
-class Inmueble<<Leaf>> implements IBien {
+class Inmueble<<Leaf, ConcreteClass>> extends Bien {
 -direccion: String
 -superficie: Real
 -valorM2: Real
 +calcularValor(): Real
-+coeficienteLiquidez(): Real
--calcularValorM2(): Real
+
+
 }
-class Alquiler<<Leaf>> implements IBien {
+class Alquiler<<Leaf, ConcreteClass>> extends Bien {
 -comienzoContrato: Date
 -finContrato: Date
 -costoMensual: Real
 +calcularValor(): Real
-+coeficienteLiquidez(): Real
 -calcularCostoAlquiler(): Real
 }
-class PrestamoPrendario<<Composite>> implements IBien {
-
+class PrestamoPrendario<<Composite>> extends Bien {
+-liquidez: Real Final
 +agregarBien(bien: Bien)
 +eliminarBien(bien: Bien)
 +calcularValor(): Real
 +valorPrendario(): Real
 }
 
-PrestamoPrendario o-> IBien : -bienes 0..*
+PrestamoPrendario o-> Bien : -bienes 0..*
 @enduml
