@@ -1,0 +1,70 @@
+@startuml
+
+abstract PlanMedico<<Strategy, AbstractClass>> {
+-fechaContratacion: Date
++getFechaContratacion(): Date
++limitePrestacion(coseguro: ICoseguro, afiliado: Afiliado): Integer
++calcularCostoMensual(): Real
++<<abstract>> obtenerMontoFijo(coseguro: ICoseguro): Real
++<<abstract>> cargoPorGrupoFamiliar(afiliado: Afiliado, coseguro: ICoseguro): Real
++<<abstract>> coberturaViajera(afiliado: Afiliado, coseguro: ICoseguro): Real
++<<abstract>> seguroPorInternacicon(): Real
+}
+class PlanObligatorio<<ConcreteStrategy, ConcreteClass>> extends PlanMedico {
++obtenerMontoFijo(coseguro: ICoseguro): Real
++cargoPorGrupoFamiliar(afiliado: Afiliado, coseguro: ICoseguro): Real
++coberturaViajera(afiliado: Afiliado, coseguro: ICoseguro): Real
++seguroPorInternacicon(): Real
+}
+class PlanIntegral<<ConcreteStrategy, ConcreteClass>> extends PlanMedico {
++obtenerMontoFijo(coseguro: ICoseguro): Real
++cargoPorGrupoFamiliar(afiliado: Afiliado, coseguro: ICoseguro): Real
++coberturaViajera(afiliado: Afiliado, coseguro: ICoseguro): Real
++seguroPorInternacicon(): Real
+}
+class PlanPremium<<ConcreteStrategy, ConcreteClass>> extends PlanMedico {
++obtenerMontoFijo(coseguro: ICoseguro): Real
++cargoPorGrupoFamiliar(afiliado: Afiliado, coseguro: ICoseguro): Real
++coberturaViajera(afiliado: Afiliado, coseguro: ICoseguro): Real
++seguroPorInternacicon(): Real
+}
+
+class Afiliado<<Context>> {
+-nombre: String
+-familiaresACargo: Integer
+-salario: Real
+-fechaNacimiento: Date
++calcularMonto(): Real
++setPlanMedico(plan: PlanMedico)
++setCoseguro(coseguro: ICoseguro)
++getFamiliaresACargo(): Integer
++getSalario(): Real
+}
+
+interface ICoseguro<<Component>>{
++getDescuento(): Integer
++getAntiguedad(): Integer
++getMontoCoberturaViajes(): Real
+}
+
+class Coseguro<<RealSubject>>{
+-nombre: String
+-descuento: Integer
+-fechaIngreso: Date
+-montoCoberturaViajes: Real
++getDescuento(): Integer
++getAntiguedad(): Integer
++getMontoCoberturaViajes(): Real
+}
+class NullCoseguro<<NullObject>> {
++getDescuento(): Integer
++getAntiguedad(): Integer
++getMontoCoberturaViajes(): Real
+}
+
+Afiliado --> PlanMedico : -*previos
+Afiliado --> PlanMedico : -plan 1
+Afiliado --> ICoseguro : -coseguro
+Coseguro ..|> ICoseguro
+NullCoseguro ..|> ICoseguro
+@enduml
