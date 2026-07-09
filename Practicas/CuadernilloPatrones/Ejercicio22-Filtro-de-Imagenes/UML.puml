@@ -1,49 +1,64 @@
 @startuml
-class PNGFilterLauncher<<Context>> {
--inputFile: File
--outputFile: File
-+main(args: String[])
-processArgs(args: String[])
-initializeFilters()
+
+' --- 1. COMPONENTE (Patrón Decorator) ---
+interface Filter <<Component>> {
+    + {abstract} filter(image: BufferedImage): BufferedImage
 }
 
-abstract Filter <<Strategy>> {
-+<<abstract>> filter(image: BufferedImage): BufferedImage
+' El objeto base que es envuelto
+class BaseImage <<ConcreteComponent>> implements Filter {
+    + filter(image: BufferedImage): BufferedImage { return image }
 }
 
-class Artifacter <<ConcreteStrategy>> {
--tempFile: File
--compressionQuality: float
-+filter(image: BufferedImage): BufferedImage
-}
-class Dull <<ConcreteStrategy>>{
-+filter(image: BufferedImage): BufferedImage
-}
-class Rainbow <<ConcreteStrategy>> {
-+filter(image: BufferedImage): BufferedImage
-}
-class Repeater <<ConcreteStrategy>> {
-+filter(image: BufferedImage): BufferedImage
-}
-class RGBShifter <<ConcreteStrategy>> {
--<<final>> X_REPEAT: Integer
--<<final>> Y_REPEAT: Integer
-+filter(image: BufferedImage): BufferedImage
-+shiftValue(original, shiftMagnitude: Integer): Integer
-}
-class RGBShiftRepeater <<ConcreteStrategy>> {
--<<final>> X_REPEAT: Integer
--<<final>> Y_REPEAT: Integer
-+filter(image: BufferedImage): BufferedImage
+' --- 2. DECORADOR BASE (Patrón Decorator) ---
+abstract class FilterDecorator <<Decorator>> implements Filter {
+    # next: Filter
+    + <<create>> FilterDecorator(f: Filter)
+    + filter(image: BufferedImage): BufferedImage
+    ' Frozen Spot: El bucle de píxeles
+    # applyLoop(image: BufferedImage): BufferedImage
+    ' Hot Spot: Lógica específica de cada filtro
+    # {abstract} applyPixelLogic(pixel: Color): Color <<hookOp>>
 }
 
-PNGFilterLauncher --> Filter : -activeFilters 1..*
-PNGFilterLauncher --> Filter : -filters 1..*
-Filter <|-- Artifacter
-Filter <|-- Dull
-Filter <|-- Rainbow
-Filter <|-- Repeater
-Filter <|-- RGBShifter
-Filter <|-- RGBShiftRepeater
-RGBShiftRepeater o--> RGBShifter : uses
+' --- 3. FILTROS CONCRETOS (Decoradores y Subclases de Template Method) ---
+class MonochromeFilter <<ConcreteDecorator>> extends FilterDecorator {
+    # applyPixelLogic(pixel: Color): Color ' Implementa el promedio [3]
+}
+
+class RainbowFilter <<ConcreteDecorator>> extends FilterDecorator {
+    # applyPixelLogic(pixel: Color): Color
+}
+
+class RGBShifter <<ConcreteDecorator>> extends FilterDecorator {
+    - X_SHIFT: int
+    # applyPixelLogic(pixel: Color): Color
+}
+
+class Artifacter <<ConcreteDecorator>> extends FilterDecorator {
+    - quality: float
+    + filter(image: BufferedImage): BufferedImage ' Redefine el comportamiento base
+}
+
+' --- 4. CREACIÓN (Patrón Factory Method) ---
+' Encapsula las reglas del ejercicio 22c [8, 10]
+class FilterFactory <<Creator>> {
+    + createMultichromeSequence(codes: List<String>): Filter
+    + createMonochromeSequence(codes: List<String>): Filter
+    - validateRules(sequence: List<String>) ' Oculta las reglas de combinación
+}
+
+' --- 5. CONTEXTO ---
+class PNGFilterLauncher <<Context>> {
+    - inputFile: File
+    - outputFile: File
+    + main(args: String[])
+}
+
+' Relaciones y Roles
+FilterDecorator o--> Filter : -next
+PNGFilterLauncher --> FilterFactory : usa para crear
+PNGFilterLauncher --> Filter : -activeFilters
+FilterFactory ..> Filter : <<instantiates>>
+
 @enduml

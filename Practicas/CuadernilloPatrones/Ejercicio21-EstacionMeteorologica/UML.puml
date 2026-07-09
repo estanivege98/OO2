@@ -8,7 +8,7 @@ interface WeatherData <<Component>> {
     + displayData(): String
 }
 
-class HomeWeatherStation <<ConcreteComponent>> {
+abstract HomeWeatherStation <<ConcreteComponent>> {
     # temperatura: Real
     # presion: Real
     # radiacionSolar: Real
@@ -18,6 +18,16 @@ class HomeWeatherStation <<ConcreteComponent>> {
     + getRadiacionSolar(): double
     + getTemperaturas(): List<Double>
     + displayData(): String
+}
+
+class HomeWeatherCelcsiusStation <<ConcreteComponent>> extends HomeWeatherStation {
+    + getTemperatura(): double
+    +getPresion(): double
+    +getRadiacionSolar(): double
+    +getTemperaturas(): List<Double>
+    +displayData(): String
+    - fahrenheitACelcius(): double // Cambia "F" por "C"
+
 }
 
 abstract class WeatherDecorator <<Decorator>> {

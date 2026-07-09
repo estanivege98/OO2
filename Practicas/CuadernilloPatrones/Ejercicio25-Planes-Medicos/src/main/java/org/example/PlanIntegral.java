@@ -15,10 +15,11 @@ public class PlanIntegral extends PlanMedico{
         return this.monto;
     }
     public double cargoPorGrupoFamiliar(Afiliado afiliado, ICoseguro coseguro){
-        return (afiliado.getFamiliaresACargo() * 3.000) + (afiliado.getSalario() * 0.01);
+        return (afiliado.getFamiliaresACargo() * 3_000) + (afiliado.getSalario() * 0.01);
     }
+    @Override
     public double coberturaViajera(Afiliado afiliado, ICoseguro coseguro){
-        return (afiliado.getSalario() * 0.03) - (coseguro.getAntiguedad() != 0 ? (coseguro.getAntiguedad() * 10.000) : 0.0);
+        return (afiliado.getSalario() * 0.03) - (coseguro.getAntiguedad()  * anioPorAntiguedad);
     }
     public double seguroPorInternacion(){
         return this.monto * 0.05;

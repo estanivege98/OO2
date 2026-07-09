@@ -14,11 +14,17 @@ public abstract class PlanMedico {
     }
 
     public double limitePrestaciones(ICoseguro coseguro, Afiliado afiliado) {
-        return this.obtenerMontoFijo(coseguro) + this.cargoPorGrupoFamiliar(afiliado, coseguro) + this.coberturaViajera(afiliado, coseguro) + this.seguroPorInternacion();
+        return this.obtenerMontoFijo(coseguro)
+                + this.cargoPorGrupoFamiliar(afiliado, coseguro)
+                + this.coberturaViajera(afiliado, coseguro)
+                + this.seguroPorInternacion();
     }
 
     public abstract double obtenerMontoFijo(ICoseguro coseguro);
     public abstract double cargoPorGrupoFamiliar(Afiliado afiliado, ICoseguro coseguro);
-    public abstract double coberturaViajera(Afiliado afiliado, ICoseguro coseguro);
+
+    public double coberturaViajera(Afiliado afiliado, ICoseguro coseguro){
+        return (afiliado.getSalario() * 0.01) - coseguro.getMontoCoberturaViaje();
+    }
     public abstract double seguroPorInternacion();
 }

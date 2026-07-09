@@ -1,6 +1,6 @@
 @startuml
 
-abstract PlanMedico<<Strategy, AbstractClass>> {
+abstract PlanMedico<<AbstractClass>> {
 -fechaContratacion: Date
 +getFechaContratacion(): Date
 +limitePrestacion(coseguro: ICoseguro, afiliado: Afiliado): Integer
@@ -10,19 +10,19 @@ abstract PlanMedico<<Strategy, AbstractClass>> {
 +<<abstract>> coberturaViajera(afiliado: Afiliado, coseguro: ICoseguro): Real
 +<<abstract>> seguroPorInternacicon(): Real
 }
-class PlanObligatorio<<ConcreteStrategy, ConcreteClass>> extends PlanMedico {
+class PlanObligatorio<<ConcreteClass>> extends PlanMedico {
 +obtenerMontoFijo(coseguro: ICoseguro): Real
 +cargoPorGrupoFamiliar(afiliado: Afiliado, coseguro: ICoseguro): Real
 +coberturaViajera(afiliado: Afiliado, coseguro: ICoseguro): Real
 +seguroPorInternacicon(): Real
 }
-class PlanIntegral<<ConcreteStrategy, ConcreteClass>> extends PlanMedico {
+class PlanIntegral<<ConcreteClass>> extends PlanMedico {
 +obtenerMontoFijo(coseguro: ICoseguro): Real
 +cargoPorGrupoFamiliar(afiliado: Afiliado, coseguro: ICoseguro): Real
 +coberturaViajera(afiliado: Afiliado, coseguro: ICoseguro): Real
 +seguroPorInternacicon(): Real
 }
-class PlanPremium<<ConcreteStrategy, ConcreteClass>> extends PlanMedico {
+class PlanPremium<<ConcreteClass>> extends PlanMedico {
 +obtenerMontoFijo(coseguro: ICoseguro): Real
 +cargoPorGrupoFamiliar(afiliado: Afiliado, coseguro: ICoseguro): Real
 +coberturaViajera(afiliado: Afiliado, coseguro: ICoseguro): Real
